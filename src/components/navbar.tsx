@@ -1,17 +1,33 @@
+import { useState } from 'react';
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu" // Update with the correct path
+
 export default function Navbar() {
+  // state to track the currently active button
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const handleButtonClick = (buttonIndex: number) => {
+    setActiveIndex((prevActiveIndex) => prevActiveIndex === buttonIndex ? null : buttonIndex);
+  };
+
   return (
-    <div className="text-white p-4">
-      <div className="flex items-center justify-center bg-green-600 w-24 h-24 rounded-full border-[6px] border-yellow-500 ">
-        <span className="text-white text-lg font-semibold">AB</span>
-      </div>
-      {Array.from({ length: 5 }, (_, idx) => (
-        <div
-          key={idx}
-          className="mt-5 flex items-center justify-center bg-green-600 w-24 h-24 rounded-full overflow-hidden"
-        >
-          <span className="text-white text-lg font-semibold">serverName</span>
-        </div>
-      ))}
-    </div>
+    <NavigationMenu className="text-white p-4">
+      <NavigationMenuList>
+        {Array.from({ length: 6 }, (_, idx) => (
+          <NavigationMenuItem key={idx}>
+            <NavigationMenuTrigger
+              onClick={() => handleButtonClick(idx)}
+              className={`${activeIndex === idx ? 'your-active-class' : ''}`}
+            >
+              <span className="text-lg font-semibold">serverName</span>
+            </NavigationMenuTrigger>
+          </NavigationMenuItem>
+        ))}
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 }

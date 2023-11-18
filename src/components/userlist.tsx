@@ -1,21 +1,27 @@
 import React from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-const users = [
+import { ScrollArea } from "./ui/scroll-area";
+
+interface User {
+  id: number;
+  name: string;
+}
+const users: User[] = [
   { id: 1, name: "User 1" },
   { id: 2, name: "User 2" },
   { id: 3, name: "User 3" },
-  { id: 4, name: "User 4" },
+  { id: 4, name: "Person 4" },
   { id: 5, name: "User 5" },
   { id: 6, name: "User 6" },
   { id: 7, name: "User 7" },
   { id: 8, name: "User 8" },
   { id: 9, name: "User 9" },
-  { id: 10, name: "User 10" },
+  { id: 10, name: "Person 10" },
   { id: 11, name: "User 11" },
   { id: 12, name: "User 12" },
   { id: 13, name: "User 13" },
-  { id: 14, name: "User 14" },
+  { id: 14, name: "Person 14" },
   { id: 15, name: "User 15" },
   { id: 16, name: "User 16" },
   { id: 17, name: "User 17" },
@@ -40,17 +46,17 @@ export default function Userlist() {
   return (
     <div className="w-64 p-3">
       <h2>Students</h2>
-      <div>
+      <ScrollArea className="h-full">
         {users.map((user) => (
           <div key={user.id} className="flex items-center space-x-2 my-2">
             <Avatar>
               <AvatarImage src="" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <span>{user.name}</span>
           </div>
         ))}
-      </div>
+      </ScrollArea>
     </div>
   );
 }

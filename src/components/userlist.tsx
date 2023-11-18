@@ -45,7 +45,7 @@ const users: User[] = [
 export default function Userlist() {
   return (
     <div className="w-64 p-3">
-      <h2>Students</h2>
+      <h1 className="text-2xl font-bold mb-4 border-b">Students</h1>
       <ScrollArea className="h-full">
         {users.map((user) => (
           <div key={user.id} className="flex items-center space-x-2 my-2">

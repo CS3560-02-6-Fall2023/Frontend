@@ -4,11 +4,11 @@ import { Button } from "./ui/button";
 
 export default function Navbar() {
   return (
-    <ScrollArea className="w-max h-screen mx-2 overflow-none hide-scrollbar overflow-y-auto">
+    <ScrollArea className="w-max h-screen mx-2 overflow-none overflow-y-auto">
       <div className="flex flex-col mx-1 py-2">
         <Button variant="avatar" className="p-0 h-24 w-24 border-4 border-yellow-500 my-1">
           <Avatar className="h-full w-full">
-            <AvatarImage className="object-cover h-fullpointer-events-none" src="" />
+            <AvatarImage className="object-cover h-full pointer-events-none" src="" />
             <AvatarFallback className="w-full h-full bg-inherit font-semibold text-2xl text-muted">First</AvatarFallback>
           </Avatar>
         </Button>
@@ -21,7 +21,7 @@ export default function Navbar() {
           </Button>
         ))}
       </div>
-      <ScrollBar hidden="false"/>
+      <ScrollBar/>
     </ScrollArea>
   );
 }

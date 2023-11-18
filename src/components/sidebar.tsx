@@ -31,7 +31,7 @@ const channels = [
 
 export default function SideBar() {
   return (
-    <div className="h-screen w-64 p-9 border flex flex-col">
+    <div className="h-screen w-64 p-3 border flex flex-col">
       <h1 className="text-2xl font-bold mb-4 border-b">CS3560.02</h1>
       <ScrollArea className="overflow-y-auto h-full">
         <div className="flex flex-col items-start">

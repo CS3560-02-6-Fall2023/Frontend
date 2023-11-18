@@ -68,19 +68,18 @@ const Message = ({ user, content, image, ...props }: { user: string; content: st
     <div className="p-2 hover:bg-slate-100" {...props}>
       <span className="text-gray-400 text-lg">{user}: </span>
       <span>{content}</span>
-      {image ? <img src={image}/> : null}
+      {image ? <img src={image} /> : null}
     </div>
   );
 };
 const Chat = () => {
   return (
     <div className="flex flex-col flex-1 h-screen">
-      <div className="p-2 mb-4 border-b">
-        <h1 className="text-2xl font-bold">general</h1>
-      </div>
+      <h1 className="text-2xl font-bold mb-4 border-b text-green-700 p-1.5">general</h1>
+
       <ScrollArea className="overflow-y-auto h-full px-5 mb-2">
         {messages.map((message) => (
-          <Message key={message.id} user={message.sender} content={message.text} image={message.image}/>
+          <Message key={message.id} user={message.sender} content={message.text} image={message.image} />
         ))}
       </ScrollArea>
       <div className="flex items-center mb-8 px-10">

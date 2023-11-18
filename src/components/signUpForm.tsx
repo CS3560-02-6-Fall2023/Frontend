@@ -11,6 +11,37 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const SignUpForm = () => {
+  // const handleSubmit = async(e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const files = imageRef?.current as HTMLInputElement | null;
+  //   if (files?.files) {
+  //     const file = files.files[0];
+  //     const blob = file.slice(0, file.size, file.type);
+      
+  //     blob.text().then(console.log);
+      
+  //     // const reader = new FileReader();
+  //     // reader.readAsDataURL(blob);
+
+  //     // Append the blob as 'file' field
+  //     const formdata = new FormData();
+  //     const data = {
+  //       "username": "test",
+  //       "password": "test",
+  //       "email": "asdasdiasdjios@a.a",
+  //       "profile": await blob.text(),
+  //     }
+  //     formdata.append('file', files.files[0], 'test.png')
+  //     // Send a POST request with the blob as the body
+  //     const response = async () => await fetch('http://127.0.0.1:5000/account/', {
+  //       method: 'POST',
+  //       mode: 'no-cors',
+  //       body: JSON.stringify(data),
+        
+  //     });
+  //     response();
+  //   }
+  // };
   return (
     <div className="flex items-center justify-center h-screen ">
       <Card className="p-3 rounded-lg shadow-lg w-96">

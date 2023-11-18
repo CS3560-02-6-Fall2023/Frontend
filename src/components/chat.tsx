@@ -1,57 +1,91 @@
 import React from "react";
+import { ScrollArea } from "./ui/scroll-area";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
-const Chat = () => {
-  const messages = [
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 1, sender: "User 1", text: "Hello there!" },
-    { id: 2, sender: "User 2", text: "Hi! How can I help you?" },
-    {
-      id: 3,
-      sender: "User 1",
-      text: "",
-    },
-    // Add more messages as needed
-  ];
-// TODO ACTUALLY ALIGN THE BUTTONS AND INPUT TO BOTTOm
-// AND MAKE THE MESSAGES SCROLLABLE
+const messages = [
+  { id: 1, sender: "User 1", text: "Hello there!", image: "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!", image: "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 1, sender: "User 1", text: "Hello there!" },
+  { id: 2, sender: "User 2", text: "Hi! How can I help you?" },
+  {
+    id: 3,
+    sender: "User 1",
+    text: "",
+  },
+];
+
+const Message = ({ user, content, image, ...props }: { user: string; content: string; image?: string }) => {
   return (
-    <div className="flex-1 p-4 flex-col">
-      <div>
-        <h1 className="text-2xl font-bold mb-4 border-b">general</h1>
+    <div className="p-2 hover:bg-slate-100" {...props}>
+      <span className="text-gray-400 text-lg">{user}: </span>
+      <span>{content}</span>
+      {image ? <img src={image}/> : null}
+    </div>
+  );
+};
+const Chat = () => {
+  return (
+    <div className="flex flex-col flex-1 h-screen">
+      <div className="p-2 mb-4 border-b">
+        <h1 className="text-2xl font-bold">general</h1>
       </div>
-      <div className="flex-1">
-        <div className="flex flex-col overflow-y-auto">
-          {messages.map((message) => (
-            <div key={message.id} className="mb-2">
-              <span className="text-gray-400">{message.sender}:</span>{" "}
-              <span>{message.text}</span>
-            </div>
-          ))}
-        </div>
-        <div className="flex items-center mb-4">
-          <input
-            type="text"
-            placeholder="Type your message..."
-            className="flex-1 p-2 border rounded text-black"
-          />
-          <button className="ml-2 bg-green-600 text-white p-2 rounded">
-            Send
-          </button>
-        </div>
+      <ScrollArea className="overflow-y-auto h-full px-5 mb-2">
+        {messages.map((message) => (
+          <Message key={message.id} user={message.sender} content={message.text} image={message.image}/>
+        ))}
+      </ScrollArea>
+      <div className="flex items-center mb-8 px-10">
+        <Input placeholder="Type your message..." className="text-xl p-2 flex-1 py-2 border rounded text-black" />
+        <Button className="text-xl ml-2 bg-green-600 text-white p-2 rounded">Send</Button>
       </div>
     </div>
   );

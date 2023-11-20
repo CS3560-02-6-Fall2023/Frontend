@@ -1,10 +1,10 @@
-// import React from "react";
+import React from "react";
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,81 +12,90 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 
 const SignUpForm = () => {
-  // const handleSubmit = async(e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   const files = imageRef?.current as HTMLInputElement | null;
-  //   if (files?.files) {
-  //     const file = files.files[0];
-  //     const blob = file.slice(0, file.size, file.type);
+    const [image, setImage] = React.useState("");
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (!event.target.files) return;
 
-  //     blob.text().then(console.log);
+        const file = event.target.files[0];
 
-  //     // const reader = new FileReader();
-  //     // reader.readAsDataURL(blob);
+        const fReader = new FileReader();
+        fReader.onload = function () {
+            const encodedImg = fReader.result as string;
+            setImage(encodedImg);
+        };
 
-  //     // Append the blob as 'file' field
-  //     const formdata = new FormData();
-  //     const data = {
-  //       "username": "test",
-  //       "password": "test",
-  //       "email": "asdasdiasdjios@a.a",
-  //       "profile": await blob.text(),
-  //     }
-  //     formdata.append('file', files.files[0], 'test.png')
-  //     // Send a POST request with the blob as the body
-  //     const response = async () => await fetch('http://127.0.0.1:5000/account/', {
-  //       method: 'POST',
-  //       mode: 'no-cors',
-  //       body: JSON.stringify(data),
+        fReader.readAsDataURL(file);
+    };
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const userData = {
+            username: event.currentTarget.username.value,
+            password: event.currentTarget.password.value,
+            email: event.currentTarget.email.value,
+            profilePicture: image,
+        };
 
-  //     });
-  //     response();
-  //   }
-  // };
-  return (
-    <div className="flex items-center justify-center h-screen ">
-      <Card className="p-3 rounded-lg shadow-lg w-96">
-        <CardHeader>
-          <CardTitle className="font-bold text-center">
-            Get started with (app-name)
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="py-3 mb-5">
-          <div className="mb-4 flex space-x-2">
-            <div>
-              <Label htmlFor="first-name">First Name</Label>
-              <Input type="text" id="first-name" />
-            </div>
-            <div>
-              <Label htmlFor="last-name">Last Name</Label>
-              <Input type="text" id="last-name" />
-            </div>
-          </div>
-          <div className="mb-4">
-            <Label htmlFor="email">Cal Poly Pomona Email</Label>
-            <Input type="email" id="email" />
-          </div>
-          <div>
-            <Label htmlFor="password">Password</Label>
-            <Input type="password" id="password" />
-          </div>
-        </CardContent>
-        <CardFooter className="grid gap-1.5">
-          <Button type="submit" className="mb-3">
-            Create Account
-          </Button>
-          <div className="flex justify-between items-baseline">
-            <p className="text-sm text-muted-foreground font-medium leading-none">
-              Already using (app-name)?
-            </p>
-            <Button variant="link" className="font-semibold" asChild>
-              <Link to="/login">Sign In</Link>
-            </Button>
-          </div>
-        </CardFooter>
-      </Card>
-    </div>
-  );
+        const response = await fetch("http://127.0.0.1:5000/account/", {
+            method: "POST",
+            body: JSON.stringify(userData),
+        });
+        const data = await response.json();
+
+
+        console.log(data);
+    };
+    return (
+        <div className="flex items-center justify-center h-screen w-full">
+            <form onSubmit={handleSubmit}>
+                <Card className="p-3 rounded-lg shadow-lg w-96">
+                    <CardHeader>
+                        <CardTitle className="font-bold text-center">
+                            Get started with ChatCPP
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="py-3 mb-5 space-y-2">
+                        <div>
+                            <Label htmlFor="username">Username</Label>
+                            <Input type="text" id="username"/>
+                        </div>
+                        <div>
+                            <Label htmlFor="email">Cal Poly Pomona Email</Label>
+                            <Input type="email" id="email"/>
+                        </div>
+                        <div>
+                            <Label htmlFor="password">Password</Label>
+                            <Input type="password" id="password"/>
+                        </div>
+                        <div>
+                            <Label htmlFor="profile-picture">
+                                Profile Picture
+                            </Label>
+                            <Input
+                                type="file"
+                                id="profile-picture"
+                                accept="image/png, image/jpeg"
+                                onChange={handleImageChange}
+                            />
+                            <img src={image} />
+                        </div>
+                    </CardContent>
+                    <CardFooter className="grid gap-1.5">
+                        <Button type="submit" className="mb-3">
+                            Create Account
+                        </Button>
+                        <div className="flex justify-between items-baseline">
+                            <p className="text-sm text-muted-foreground font-medium leading-none">
+                                Already using ChatCPP?
+                            </p>
+                            <Button variant="link" className="font-semibold">
+                                <Link to="/login">Sign In</Link>
+                            </Button>
+                        </div>
+                    </CardFooter>
+                </Card>
+            </form>
+        </div>
+    );
 };
 
 export default SignUpForm;

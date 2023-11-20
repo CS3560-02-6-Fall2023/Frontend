@@ -9,17 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
-interface SignUpElements extends HTMLFormControlsCollection {
-    username: HTMLInputElement;
-    password: HTMLInputElement;
-    email: HTMLInputElement;
-    profilePicture: HTMLInputElement;
-}
-
-interface SignUpForm extends HTMLFormElement {
-    readonly elements: SignUpElements;
-}
+import { Link } from "react-router-dom";
 
 const SignUpForm = () => {
     const [image, setImage] = React.useState("");

@@ -1,7 +1,6 @@
 import React from "react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { ScrollArea, ScrollBar } from "./ui/scroll-area";
+import { ScrollArea } from "./ui/scroll-area";
 
 interface User {
   id: number;

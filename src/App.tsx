@@ -1,6 +1,6 @@
 import SignInForm from "./components/signInForm";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import Chat from "./components/chat";
+import Chat from "./components/chat/chat";
 import Navbar from "./components/navbar";
 import Sidebar from "./components/sidebar";
 import Userlist from "./components/userlist";

@@ -1,15 +1,17 @@
 // import SignInForm from "./components/signInForm";
-import Chat from "./components/chat";
-import Navbar from "./components/navbar";
-import Sidebar from "./components/sidebar";
-import Userlist from "./components/userlist";
+// import Chat from "./components/chat";
+// import Navbar from "./components/navbar";
+// import Sidebar from "./components/sidebar";
+// import Userlist from "./components/userlist";
+import SignUpForm from "./components/signUpForm";
 function App() {
   return (
       <div className="flex h-screen overflow-hidden">
-        <Navbar />
+        {/* <Navbar />
         <Sidebar />
         <Chat/>
-        <Userlist />
+        <Userlist /> */}
+        <SignUpForm />
       </div>
   );
 }

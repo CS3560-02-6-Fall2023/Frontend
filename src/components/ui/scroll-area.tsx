@@ -40,7 +40,7 @@ const ScrollBar = React.forwardRef<
   >
     <ScrollAreaPrimitive.ScrollAreaThumb 
     className={
-      hidden ? "hidden" :
+      hidden ? "opacity-0" :
       "relative flex-1 rounded-full bg-border"
       } 
       />

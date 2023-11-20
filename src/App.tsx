@@ -5,15 +5,12 @@ import Sidebar from "./components/sidebar";
 import Userlist from "./components/userlist";
 function App() {
   return (
-    <>
       <div className="flex h-screen overflow-hidden">
         <Navbar />
         <Sidebar />
         <Chat/>
         <Userlist />
       </div>
-      {/* <SignInForm /> */}
-    </>
   );
 }
 

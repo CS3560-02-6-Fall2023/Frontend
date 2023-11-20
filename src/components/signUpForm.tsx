@@ -26,18 +26,12 @@ const SignUpForm = () => {
 
         fReader.readAsDataURL(file);
     };
-    const handleSubmit = async (event: React.FormEvent<SignUpForm>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // const userData = {
-        //     username: event.currentTarget.username.value,
-        //     password: event.currentTarget.password.value,
-        //     email: event.currentTarget.email.value,
-        //     profilePicture: image,
-        // };
         const userData = {
-            username: "Bob",
-            password: "123456",
-            email: "Bob@gmail.com",
+            username: event.currentTarget.username.value,
+            password: event.currentTarget.password.value,
+            email: event.currentTarget.email.value,
             profilePicture: image,
         };
 
@@ -45,7 +39,7 @@ const SignUpForm = () => {
             method: "POST",
             body: JSON.stringify(userData),
         });
-        const data = await response;
+        const data = await response.json();
 
 
         console.log(data);
@@ -94,7 +88,7 @@ const SignUpForm = () => {
                                 Already using ChatCPP?
                             </p>
                             <Button variant="link" className="font-semibold">
-                                Sign In
+                                <Link to="/login">Sign In</Link>
                             </Button>
                         </div>
                     </CardFooter>

@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Link } from "react-router-dom";
 
 const SignUpForm = () => {
   // const handleSubmit = async(e: React.FormEvent) => {
@@ -17,9 +18,9 @@ const SignUpForm = () => {
   //   if (files?.files) {
   //     const file = files.files[0];
   //     const blob = file.slice(0, file.size, file.type);
-      
+
   //     blob.text().then(console.log);
-      
+
   //     // const reader = new FileReader();
   //     // reader.readAsDataURL(blob);
 
@@ -37,7 +38,7 @@ const SignUpForm = () => {
   //       method: 'POST',
   //       mode: 'no-cors',
   //       body: JSON.stringify(data),
-        
+
   //     });
   //     response();
   //   }
@@ -78,8 +79,8 @@ const SignUpForm = () => {
             <p className="text-sm text-muted-foreground font-medium leading-none">
               Already using (app-name)?
             </p>
-            <Button variant="link" className="font-semibold">
-              Sign In
+            <Button variant="link" className="font-semibold" asChild>
+              <Link to="/login">Sign In</Link>
             </Button>
           </div>
         </CardFooter>

@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Link } from "react-router-dom";
 
 const SignInForm = () => {
   return (
@@ -56,7 +57,7 @@ const SignInForm = () => {
               Don't have an account?
             </p>
             <Button variant="link" className="font-semibold">
-              Sign Up
+              <Link to="/signup">Sign Up</Link>
             </Button>
           </div>
         </CardFooter>

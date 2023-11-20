@@ -38,18 +38,28 @@ const SignUpForm = () => {
     };
     const handleSubmit = async (event: React.FormEvent<SignUpForm>) => {
         event.preventDefault();
+        // const userData = {
+        //     username: event.currentTarget.username.value,
+        //     password: event.currentTarget.password.value,
+        //     email: event.currentTarget.email.value,
+        //     profilePicture: image,
+        // };
         const userData = {
-            username: event.currentTarget.username.value,
-            password: event.currentTarget.password.value,
-            email: event.currentTarget.email.value,
-            profile: image,
+            username: "Bob",
+            password: "123456",
+            email: "Bob@gmail.com",
+            profilePicture: image,
         };
-        // Send a POST request with the blob as the body
-        // await fetch("http://127.0.0.1:5000/account/", {
-        //     method: "POST",
-        //     mode: "no-cors",
-        //     body: JSON.stringify(data),
-        // });
+
+        const response = await fetch("http://127.0.0.1:5000/account/", {
+            method: "POST",
+            mode: "no-cors",
+            body: JSON.stringify(userData),
+        });
+        const data = await response;
+
+
+        console.log(data);
     };
     return (
         <div className="flex items-center justify-center h-screen w-full">
@@ -63,15 +73,15 @@ const SignUpForm = () => {
                     <CardContent className="py-3 mb-5 space-y-2">
                         <div>
                             <Label htmlFor="username">Username</Label>
-                            <Input type="text" id="username" required/>
+                            <Input type="text" id="username"/>
                         </div>
                         <div>
                             <Label htmlFor="email">Cal Poly Pomona Email</Label>
-                            <Input type="email" id="email" required/>
+                            <Input type="email" id="email"/>
                         </div>
                         <div>
                             <Label htmlFor="password">Password</Label>
-                            <Input type="password" id="password" required/>
+                            <Input type="password" id="password"/>
                         </div>
                         <div>
                             <Label htmlFor="profile-picture">

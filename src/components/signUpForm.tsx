@@ -53,7 +53,6 @@ const SignUpForm = () => {
 
         const response = await fetch("http://127.0.0.1:5000/account/", {
             method: "POST",
-            mode: "no-cors",
             body: JSON.stringify(userData),
         });
         const data = await response;

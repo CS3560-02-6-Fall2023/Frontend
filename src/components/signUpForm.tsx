@@ -10,9 +10,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+interface SignUpElements extends HTMLFormControlsCollection {
+    username: HTMLInputElement;
+    password: HTMLInputElement;
+    email: HTMLInputElement;
+    profilePicture: HTMLInputElement;
+}
+
+interface SignUpForm extends HTMLFormElement {
+    readonly elements: SignUpElements;
+}
+
 const SignUpForm = () => {
     const [image, setImage] = React.useState("");
-    const handleImageChange = (event: { target: { files: never[]; }; }) => {
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (!event.target.files) return;
+
         const file = event.target.files[0];
 
         const fReader = new FileReader();
@@ -23,8 +36,20 @@ const SignUpForm = () => {
 
         fReader.readAsDataURL(file);
     };
-    const handleSubmit = async (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent<SignUpForm>) => {
         event.preventDefault();
+        const userData = {
+            username: event.currentTarget.username.value,
+            password: event.currentTarget.password.value,
+            email: event.currentTarget.email.value,
+            profile: image,
+        };
+        // Send a POST request with the blob as the body
+        // await fetch("http://127.0.0.1:5000/account/", {
+        //     method: "POST",
+        //     mode: "no-cors",
+        //     body: JSON.stringify(data),
+        // });
     };
     return (
         <div className="flex items-center justify-center h-screen w-full">
@@ -36,23 +61,17 @@ const SignUpForm = () => {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="py-3 mb-5 space-y-2">
-                        <div className="mb-4 flex space-x-2">
-                            <div>
-                                <Label htmlFor="first-name">First Name</Label>
-                                <Input type="text" id="first-name" />
-                            </div>
-                            <div>
-                                <Label htmlFor="last-name">Last Name</Label>
-                                <Input type="text" id="last-name" />
-                            </div>
+                        <div>
+                            <Label htmlFor="username">Username</Label>
+                            <Input type="text" id="username" required/>
                         </div>
                         <div>
                             <Label htmlFor="email">Cal Poly Pomona Email</Label>
-                            <Input type="email" id="email" />
+                            <Input type="email" id="email" required/>
                         </div>
                         <div>
                             <Label htmlFor="password">Password</Label>
-                            <Input type="password" id="password" />
+                            <Input type="password" id="password" required/>
                         </div>
                         <div>
                             <Label htmlFor="profile-picture">
@@ -87,4 +106,3 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
-

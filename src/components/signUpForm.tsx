@@ -58,6 +58,11 @@ const SignUpForm = () => {
             navigate("/");
         }
     };
+
+    const clearImage = () => {
+        setImage("");
+    }
+
     return (
         <div className="flex items-center justify-center h-screen w-full">
             <form onSubmit={handleSubmit}>
@@ -84,6 +89,12 @@ const SignUpForm = () => {
                             <Label htmlFor="profile-picture">
                                 Profile Picture
                             </Label>
+
+                            <br />
+                            {image !== "" ? (
+                                <Button variant="ghost" onClick={clearImage}>Clear image</Button>
+                            ) : undefined}
+
                             <Input
                                 type="file"
                                 id="profile-picture"

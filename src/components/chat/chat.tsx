@@ -10,7 +10,12 @@ interface Message {
   sender: string;
   text: string;
   image?: string;
+  timestamp: string;
 }
+
+const toDateTime = (date: Date): string => {
+  return date.toISOString().slice(0, 19).replace("T", " ");
+};
 
 // TODO: Replace with actual fetch to backend
 const fetchMessageHistory = async (): Promise<Message[]> => {
@@ -21,9 +26,20 @@ const fetchMessageHistory = async (): Promise<Message[]> => {
       text: "Hello there!",
       image:
         "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg",
+      timestamp: toDateTime(new Date()),
     },
-    { id: 2, sender: "User 1", text: "Hello there!" },
-    { id: 3, sender: "User 2", text: "Hi! How can I help you?" },
+    {
+      id: 2,
+      sender: "User 1",
+      text: "Hello there!",
+      timestamp: toDateTime(new Date()),
+    },
+    {
+      id: 3,
+      sender: "User 2",
+      text: "Hi! How can I help you?",
+      timestamp: toDateTime(new Date()),
+    },
   ];
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -32,8 +48,7 @@ const fetchMessageHistory = async (): Promise<Message[]> => {
   });
 };
 
-const socket = io("127.0.0.1:5000");
-
+const socket = io("127.0.0.1:5000", { transports: ["websocket"] });
 
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -53,6 +68,7 @@ const Chat = () => {
 
     socket.on("message_received", (data) => {
       const message = JSON.parse(data);
+      console.log("Received message: ", message);
       setMessages((messages) => [...messages, message]);
     });
 
@@ -65,15 +81,19 @@ const Chat = () => {
 
   const userID = 10;
   const [input, setInput] = useState({
-    id: userID,
+    id: 0,
     sender: "User " + userID,
     text: "",
     image: null,
+    timestamp: toDateTime(new Date()),
   });
+  // console.log(toDateTime(new Date()));
   const submitMessage = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    if (input.text === "") return;
-    console.log(input);
+    if (input.text === "" && input.image === null) return;
+    console.log("date: ", Date.now());
+    setInput({ ...input, id: 0 + Math.random(), timestamp: toDateTime(new Date()), });
+    // console.log(input);
     socket.emit("message", input);
     setInput({ ...input, text: "", image: null });
   };
@@ -92,6 +112,7 @@ const Chat = () => {
           <Message
             key={message.id}
             user={message.sender}
+            timestamp={message.timestamp}
             content={message.text}
             image={message.image}
           />

@@ -17,7 +17,7 @@ interface AuthenticatedContextType {
 
 export const UserContext = React.createContext<UserContextType>({
     userID: "",
-    username: "",
+    username: "User",
     setUser: () => {},
 });
 
@@ -34,7 +34,7 @@ export function AuthenticationProvider({
 }) {
     const [user, setUser] = React.useState<UserType>({
         userID: "",
-        username: "",
+        username: "User",
     });
     const [authenticated, setAuthenticated] = React.useState(false);
 

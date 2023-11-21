@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { io } from "socket.io-client";
+import { useEffect, useState } from "react";
 import Message from "./message";
-
+import ChatArea from "./chatArea";
+import socket from "./socket";
 interface Message {
   id: number;
   sender: string;
@@ -48,8 +45,6 @@ const fetchMessageHistory = async (): Promise<Message[]> => {
   });
 };
 
-const socket = io("127.0.0.1:5000", { transports: ["websocket"] });
-
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   useEffect(() => {
@@ -58,19 +53,23 @@ const Chat = () => {
 
   // Initilaize socket events
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Connected to the server");
-    });
+    const onConnect = () => console.log("Connected to the server");
 
-    socket.on("after connect", (data) => {
+    const onAfterConnect = (data: string) =>
       console.log("Received data: ", data);
-    });
 
-    socket.on("message_received", (data) => {
+    const onMessageReceived = (data: string) => {
       const message = JSON.parse(data);
       console.log("Received message: ", message);
       setMessages((messages) => [...messages, message]);
-    });
+    };
+
+    socket.on("connect", onConnect);
+
+    socket.on("after connect", onAfterConnect);
+
+    // CLient recieves message from server
+    socket.on("message_received", onMessageReceived);
 
     return () => {
       socket.off("connect");
@@ -79,56 +78,12 @@ const Chat = () => {
     };
   }, []);
 
-  const userID = 10;
-  const [input, setInput] = useState({
-    id: 0,
-    sender: "User " + userID,
-    text: "",
-    image: null,
-    timestamp: toDateTime(new Date()),
-  });
-  // console.log(toDateTime(new Date()));
-  const submitMessage = (e: React.FormEvent<HTMLElement>) => {
-    e.preventDefault();
-    if (input.text === "" && input.image === null) return;
-    console.log("date: ", Date.now());
-    setInput({ ...input, id: 0 + Math.random(), timestamp: toDateTime(new Date()), });
-    // console.log(input);
-    socket.emit("message", input);
-    setInput({ ...input, text: "", image: null });
-  };
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput({ ...input, text: e.target.value });
-  };
-
   return (
     <div className="flex flex-col flex-1 h-screen">
       <h1 className="text-2xl font-bold mb-4 border-b text-green-700 p-1.5">
         general
       </h1>
-      <ScrollArea className="overflow-y-auto h-full px-5 mb-2">
-        {messages.map((message) => (
-          <Message
-            key={message.id}
-            user={message.sender}
-            timestamp={message.timestamp}
-            content={message.text}
-            image={message.image}
-          />
-        ))}
-      </ScrollArea>
-      <form className="flex items-center mb-8 px-10" onSubmit={submitMessage}>
-        <Input
-          placeholder="Type your message..."
-          className="text-xl p-2 flex-1 py-2 border rounded text-black"
-          value={input.text}
-          onChange={handleInput}
-        />
-        <Button className="text-xl ml-2 bg-green-600 text-white p-2 rounded">
-          Send
-        </Button>
-      </form>
+      <ChatArea messages={messages} />
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Message from "./message";
-import ChatArea from "./chatArea";
-import socket from "./socket";
+import SocketProvider from "./socket";
+import ChatArea from "./ChatArea";
+
 interface Message {
   id: number;
   sender: string;
@@ -51,40 +52,15 @@ const Chat = () => {
     fetchMessageHistory().then((message) => setMessages(message));
   }, []);
 
-  // Initilaize socket events
-  useEffect(() => {
-    const onConnect = () => console.log("Connected to the server");
-
-    const onAfterConnect = (data: string) =>
-      console.log("Received data: ", data);
-
-    const onMessageReceived = (data: string) => {
-      const message = JSON.parse(data);
-      console.log("Received message: ", message);
-      setMessages((messages) => [...messages, message]);
-    };
-
-    socket.on("connect", onConnect);
-
-    socket.on("after connect", onAfterConnect);
-
-    // CLient recieves message from server
-    socket.on("message_received", onMessageReceived);
-
-    return () => {
-      socket.off("connect");
-      socket.off("after connect");
-      socket.off("message_received");
-    };
-  }, []);
-
   return (
-    <div className="flex flex-col flex-1 h-screen">
-      <h1 className="text-2xl font-bold mb-4 border-b text-green-700 p-1.5">
-        general
-      </h1>
-      <ChatArea messages={messages} />
-    </div>
+    <SocketProvider>
+      <div className="flex flex-col flex-1 h-screen">
+        <h1 className="text-2xl font-bold mb-4 border-b text-green-700 p-1.5">
+          general
+        </h1>
+        <ChatArea messages={messages} setMessages={setMessages} />
+      </div>
+    </SocketProvider>
   );
 };
 

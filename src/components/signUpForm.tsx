@@ -47,7 +47,7 @@ const SignUpForm = () => {
             body: JSON.stringify(userData),
         });
 
-        if (response.status === 201) {
+        if (response.status === 200) {
             setUser({
                 email: userData.email,
                 profilePicture: userData.profilePicture,

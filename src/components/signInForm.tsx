@@ -30,11 +30,18 @@ const SignInForm = () => {
         );
 
         if (response.status === 200) {
-            const data = await response.json();
+            const {imageID, userName} = await response.json();
+            const imageRequest = await fetch(
+                "http://127.0.0.1:5000/image/?" +
+                    new URLSearchParams({ imageID: imageID })
+            );
+
+            const { image } = await imageRequest.json();
+
             setUser({
                 email: userData.email,
-                profilePicture: data.profilePicture,
-                username: data.userName,
+                profilePicture: image,
+                username: userName,
             });
             setAuthenticated(true);
             navigate("/");

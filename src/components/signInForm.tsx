@@ -1,4 +1,4 @@
-// import React from "react";
+import React from "react";
 import {
     Card,
     CardContent,
@@ -10,9 +10,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthenticatedContext, UserContext } from "./authenticationProvider";
 
 const SignInForm = () => {
+    const { setUser } = React.useContext(UserContext);
+    const { setAuthenticated } = React.useContext(AuthenticatedContext);
+    const navigate = useNavigate();
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const userData = {
@@ -26,7 +31,13 @@ const SignInForm = () => {
 
         if (response.status === 200) {
             const data = await response.json();
-            console.log(data);
+            setUser({
+                email: userData.email,
+                profilePicture: data.profilePicture,
+                username: data.userName,
+            });
+            setAuthenticated(true);
+            navigate("/");
         }
     };
 

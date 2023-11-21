@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import {
     Card,
@@ -47,16 +46,16 @@ const SignUpForm = () => {
             method: "POST",
             body: JSON.stringify(userData),
         });
-        const data = await response.json();
 
         if (response.status === 201) {
             setUser({
-                userID: data.userID,
+                email: userData.email,
+                profilePicture: userData.profilePicture,
                 username: userData.username,
             });
 
             setAuthenticated(true);
-            navigate("/")
+            navigate("/");
         }
     };
     return (

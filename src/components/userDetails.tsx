@@ -48,7 +48,7 @@ export function DialogDemo({ children }: { children: React.ReactNode }) {
 }
 
 export default function UserDetails() {
-    const { username } = React.useContext(UserContext);
+    const { username, email, profilePicture } = React.useContext(UserContext);
 
     return (
         <div className="border-t border-gray-700 pt-4">
@@ -67,12 +67,12 @@ export default function UserDetails() {
                             </h4>
                             <div className="flex items-center space-x-5 my-2">
                                 <Avatar>
-                                    <AvatarImage src="" />
+                                    <AvatarImage src={profilePicture} />
                                     <AvatarFallback>U</AvatarFallback>
                                 </Avatar>
                                 <div className="">
                                     <p>{username}</p>
-                                    <p>EMAIL@cpp.edu</p>
+                                    <p>{email}</p>
                                 </div>
                             </div>
                         </div>

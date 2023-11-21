@@ -2,8 +2,9 @@
 import React from "react";
 
 interface UserType {
-    userID: string;
     username: string;
+    profilePicture: string;
+    email: string;
 }
 
 interface UserContextType extends UserType {
@@ -16,7 +17,8 @@ interface AuthenticatedContextType {
 }
 
 export const UserContext = React.createContext<UserContextType>({
-    userID: "",
+    email: "EMAIL@cpp.edu",
+    profilePicture: "",
     username: "User",
     setUser: () => {},
 });
@@ -33,7 +35,8 @@ export function AuthenticationProvider({
     children: JSX.Element;
 }) {
     const [user, setUser] = React.useState<UserType>({
-        userID: "",
+        email: "EMAIL@cpp.edu",
+        profilePicture: "",
         username: "User",
     });
     const [authenticated, setAuthenticated] = React.useState(false);

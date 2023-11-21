@@ -1,51 +1,10 @@
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Dialog } from "./ui/dialog";
-import { DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Checkbox } from "@radix-ui/react-checkbox";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "./ui/input";
 import UpdateScheduleForm from "./updateScheduleForm";
 import { UserContext } from "@/components/authenticationProvider";
 import React from "react";
 
-export function DialogDemo({ children }: { children: React.ReactNode }) {
-    return (
-        <Dialog>
-            <DialogTrigger asChild>{children}</DialogTrigger>
-            <DialogContent>
-                <div className="py-3">
-                    <div className="mb-4">
-                        <Label htmlFor="email">Email</Label>
-                        <Input type="email" id="email" />
-                    </div>
-                    <div>
-                        <Label htmlFor="password">Password</Label>
-                        <Input type="password" id="password" />
-                    </div>
-                    <div className="flex justify-between items-center">
-                        <div className="flex space-x-2 ">
-                            <Checkbox id="remember-me" />
-                            <Label
-                                htmlFor="remember-me"
-                                className="text-sm text-muted-foreground"
-                            >
-                                Remember me?
-                            </Label>
-                        </div>
-                        <Button
-                            variant="link"
-                            className="text-muted-foreground text-sm font-medium"
-                        >
-                            Forgot password?
-                        </Button>
-                    </div>
-                </div>
-            </DialogContent>
-        </Dialog>
-    );
-}
 
 export default function UserDetails() {
     const { username, email, profilePicture } = React.useContext(UserContext);

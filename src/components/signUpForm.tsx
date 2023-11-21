@@ -9,10 +9,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+    UserContext,
+    AuthenticatedContext,
+} from "@/components/authenticationProvider";
 
 const SignUpForm = () => {
     const [image, setImage] = React.useState("");
+    const { setUser } = React.useContext(UserContext);
+    const { setAuthenticated } = React.useContext(AuthenticatedContext);
+    const navigate = useNavigate();
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files) return;
 
@@ -39,10 +46,17 @@ const SignUpForm = () => {
             method: "POST",
             body: JSON.stringify(userData),
         });
-        const data = await response.json();
 
+        if (response.status === 201) {
+            setUser({
+                email: userData.email,
+                profilePicture: userData.profilePicture,
+                username: userData.username,
+            });
 
-        console.log(data);
+            setAuthenticated(true);
+            navigate("/");
+        }
     };
     return (
         <div className="flex items-center justify-center h-screen w-full">
@@ -56,15 +70,15 @@ const SignUpForm = () => {
                     <CardContent className="py-3 mb-5 space-y-2">
                         <div>
                             <Label htmlFor="username">Username</Label>
-                            <Input type="text" id="username"/>
+                            <Input type="text" id="username" required />
                         </div>
                         <div>
                             <Label htmlFor="email">Cal Poly Pomona Email</Label>
-                            <Input type="email" id="email"/>
+                            <Input type="email" id="email" required />
                         </div>
                         <div>
                             <Label htmlFor="password">Password</Label>
-                            <Input type="password" id="password"/>
+                            <Input type="password" id="password" required />
                         </div>
                         <div>
                             <Label htmlFor="profile-picture">

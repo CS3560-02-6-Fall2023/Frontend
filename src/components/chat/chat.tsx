@@ -49,7 +49,7 @@ const fetchMessageHistory = async (): Promise<Message[]> => {
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/message?channelID=1`)
+    fetch(`http://127.0.0.1:5000/message/?channelID=1`)
       .then((res) => res.json())
       .then((messages) => {
         messages.map(

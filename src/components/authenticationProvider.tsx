@@ -1,10 +1,26 @@
 /* eslint-disable react-refresh/only-export-components */
 import React from "react";
 
+interface Channel {
+    channelId: number;
+    channelName: string;
+    serverID: number;
+}
+
+interface ServerData {
+    channels: Channel[];
+    serverID: number;
+    serverName: string;
+    userIDs: number[];
+}
+
 interface UserType {
     username: string;
     profilePicture: string;
     email: string;
+    serverIDs: number[];
+    serverData?: ServerData[];
+    currentServer: number;
 }
 
 interface UserContextType extends UserType {
@@ -20,6 +36,9 @@ export const UserContext = React.createContext<UserContextType>({
     email: "EMAIL@cpp.edu",
     profilePicture: "",
     username: "User",
+    serverIDs: [],
+    serverData: [],
+    currentServer: 0,
     setUser: () => {},
 });
 
@@ -38,6 +57,9 @@ export function AuthenticationProvider({
         email: "EMAIL@cpp.edu",
         profilePicture: "",
         username: "User",
+        serverIDs: [],
+        serverData: [],
+        currentServer: 0,
     });
     const [authenticated, setAuthenticated] = React.useState(false);
 

@@ -1,8 +1,9 @@
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import Message from "./message";
+import { useChat } from "./useChat";
+import { useEffect } from "react";
 import { useSocket } from "./socket";
 
 interface Message {
@@ -13,85 +14,53 @@ interface Message {
   timestamp: string;
 }
 
-// Utility function to convert date to ISO string
-const toDateTime = (date: Date): string => {
-  return date.toISOString().slice(0, 19).replace("T", " ");
-};
+const ChatArea = () => {
+  const { joinRoom, leaveRoom } = useSocket();
+  const { messages, setMessages, input, handleInput, submitMessage } =
+    useChat();
 
-// Initial state for the input
-const initialInputState = (userID: number) => ({
-  id: 0,
-  sender: "User " + userID,
-  text: "",
-  image: null,
-  timestamp: toDateTime(new Date()),
-});
-
-const ChatArea = ({
-  messages,
-  setMessages,
-}: {
-  messages: Message[];
-  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
-}) => {
-  const date = useRef(new Date());
-  const userID = 10;
-  const [input, setInput] = useState(() => initialInputState(userID));
-  const { messagesSocket } = useSocket();
-
-  // Initialize socket events
   useEffect(() => {
-    const onConnect = () => console.log("Connected to the server");
-    const onAfterConnect = (data: string) =>
-      console.log("Received data: ", data);
-    const onMessageReceived = (data: string) => {
-      const message = JSON.parse(data);
-      console.log("Received message: ", message);
-      setMessages((messages) => [...messages, message]);
-    };
+    fetch(`http://127.0.0.1:5000/message?channelID=1`)
+      .then((res) => res.json())
+      .then((messages) => {
+        const formattedMessages = messages.map(
+          (item: {
+            messageID: number;
+            userID: number;
+            userName: string;
+            message: string;
+            timeSent: string;
+          }) => {
+            const displayMessage: Message = {
+              id: item.messageID,
+              sender: item.userName,
+              text: item.message,
+              timestamp: item.timeSent,
+            };
+            return displayMessage;
+          }
+        );
+        console.log(formattedMessages);
+        setMessages(formattedMessages);
+      });
+  }, [setMessages]);
 
-    messagesSocket.on("connect", onConnect);
-    messagesSocket.on("after connect", onAfterConnect);
-    messagesSocket.on("message_received", onMessageReceived);
-
-    // Clean up function
+  const room = "test";
+  useEffect(() => {
+    // Join the room when the component mounts
+    joinRoom(room);
+    // Leave the room when the component unmounts
     return () => {
-      messagesSocket.off("connect");
-      messagesSocket.off("after connect");
-      messagesSocket.off("message_received");
+      leaveRoom(room);
     };
-  }, [messagesSocket, setMessages]);
-
-  useEffect(() => {
-    setTimeout(() => {
-        // console.log(date.current)
-        date.current = new Date();
-        }
-    , 1000);
-  });
-
-  const submitMessage = (e: React.FormEvent<HTMLElement>) => {
-    console.log(new Date());
-    e.preventDefault();
-    if (input.text === "" && input.image === null) return;
-    
-    setInput({
-      ...input,
-      timestamp: toDateTime(date.current),
-    });
-    messagesSocket.emit("message", input);
-    setInput(initialInputState(userID)); // Reset input state
-  };
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput({ ...input, text: e.target.value });
-  };
+  }, [joinRoom, leaveRoom, room]);
 
   return (
     <>
       <ScrollArea className="overflow-y-auto h-full px-5 mb-2">
         {messages.map((message) => (
           <Message
+            key={message.id}
             user={message.sender}
             timestamp={message.timestamp}
             content={message.text}

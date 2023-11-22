@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogTrigger, DialogClose } from "./ui/dialog";
 const AddClassForm = ({ children }: { children: React.ReactNode }) => {
   const [courseSubject, setCourseSubject] = useState('');
   const [courseNumber, setCourseNumber] = useState('');
+  const [courseSection, setCourseSection] = useState('');
 
   const handleSubjectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.toUpperCase();
@@ -22,13 +23,48 @@ const AddClassForm = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const handleAddCourse = () => {
-    console.log('Adding course:', courseSubject, courseNumber);
+  const handleSectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) { // allow only digits to be inputted for the course number
+      setCourseSection(value);
+    }
+  };
+
+  const handleAddCourse = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    console.log('Adding course:', courseSubject, courseNumber, courseSection);
     // clear input fields after successful course add
     setCourseSubject('');
     setCourseNumber('');
+    setCourseSection('');
+
     // automatically close the form upon successful course add
     document.getElementById('close-button')?.click();
+
+    // fetch the backend for the inputted course
+    const courseName = courseSubject + courseNumber + "." + courseSection 
+    console.log("Course name: " + courseName)
+    const addedCourseData = {
+      courseName: courseName,
+    };
+
+    const response = await fetch( // seeing if the course number and section exists
+      "http://127.0.0.1:5000/course/?" + new URLSearchParams(addedCourseData)
+    );
+
+    if ((response).ok){
+      //if a course number and section exists, return the serverID
+      console.log("Fetch successful")
+
+
+    } else {
+      //if not create a new server and return the serverI
+      console.log("Fetch NOT successful")
+      
+
+    }
+
+    // 
   };
 
   return (
@@ -57,6 +93,18 @@ const AddClassForm = ({ children }: { children: React.ReactNode }) => {
             value={courseNumber}
             onChange={handleNumberChange}
             maxLength={4}
+            required
+          />
+
+          <Label htmlFor="number" className="block text-lg font-bold mb-2">
+            Section Number (if applicable)
+          </Label>
+          <Input
+            type="text"
+            id="section"
+            value={courseSection}
+            onChange={handleSectionChange}
+            maxLength={1}
             required
           />
 

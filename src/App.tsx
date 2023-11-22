@@ -15,7 +15,7 @@ const MessageApp = () => (
     <div className="flex h-screen overflow-hidden">
         <Navbar />
         <Sidebar />
-        {/* <Chat /> */}
+        <Chat />
         <Userlist />
     </div>
 );

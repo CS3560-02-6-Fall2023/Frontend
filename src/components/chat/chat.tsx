@@ -4,85 +4,62 @@ import SocketProvider from "./socket";
 import ChatArea from "./ChatArea";
 
 interface Message {
-  id: number;
-  sender: string;
-  text: string;
-  image?: string;
-  timestamp: string;
+    id: number;
+    sender: string;
+    text: string;
+    image?: string;
+    timestamp: string;
 }
 
 const toDateTime = (date: Date): string => {
-  return date.toISOString().slice(0, 19).replace("T", " ");
+    return date.toISOString().slice(0, 19).replace("T", " ");
 };
 
 // TODO: Replace with actual fetch to backend
 const fetchMessageHistory = async (): Promise<Message[]> => {
-  const messages: Message[] = [
-    {
-      id: 1,
-      sender: "User 1",
-      text: "Hello there!",
-      image:
-        "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg",
-      timestamp: toDateTime(new Date()),
-    },
-    {
-      id: 2,
-      sender: "User 1",
-      text: "Hello there!",
-      timestamp: toDateTime(new Date()),
-    },
-    {
-      id: 3,
-      sender: "User 2",
-      text: "Hi! How can I help you?",
-      timestamp: toDateTime(new Date()),
-    },
-  ];
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      return resolve(messages);
-    }, 1000);
-  });
+    const messages: Message[] = [
+        {
+            id: 1,
+            sender: "User 1",
+            text: "Hello there!",
+            image: "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg",
+            timestamp: toDateTime(new Date()),
+        },
+        {
+            id: 2,
+            sender: "User 1",
+            text: "Hello there!",
+            timestamp: toDateTime(new Date()),
+        },
+        {
+            id: 3,
+            sender: "User 2",
+            text: "Hi! How can I help you?",
+            timestamp: toDateTime(new Date()),
+        },
+    ];
+    return new Promise(resolve => {
+        setTimeout(() => {
+            return resolve(messages);
+        }, 1000);
+    });
 };
 
 const Chat = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  useEffect(() => {
-    fetch(`http://127.0.0.1:5000/message/?channelID=1`)
-      .then((res) => res.json())
-      .then((messages) => {
-        messages.map(
-          (item: {
-            messageID: number;
-            userID: number;
-            userName: string;
-            message: string;
-            timeSent: string;
-          }) => {
-            const displayMessage: Message = {
-              id: item.messageID,
-              sender: item.userName,
-              text: item.message,
-              timestamp: item.timeSent,
-            };
-            return displayMessage;
-          }
-        );
-        console.log(messages);
-        setMessages(messages);
-      });
-  }, []);
-  return (
-    <SocketProvider>
-      <div className="flex flex-col flex-1 h-screen">
-        <h1 className="text-2xl font-bold mb-4 border-b text-green-700 p-1.5">
-          general
-        </h1>
-        <ChatArea />
-      </div>
-    </SocketProvider>
-  );
+    const [, setMessages] = useState<Message[]>([]);
+    useEffect(() => {
+        setMessages([]);
+    }, []);
+    return (
+        <SocketProvider>
+            <div className="flex flex-col flex-1 h-screen">
+                <h1 className="text-2xl font-bold mb-4 border-b text-green-700 p-1.5">
+                    general
+                </h1>
+                <ChatArea />
+            </div>
+        </SocketProvider>
+    );
 };
 
 export default Chat;

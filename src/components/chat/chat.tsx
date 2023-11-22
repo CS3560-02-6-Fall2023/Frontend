@@ -49,16 +49,37 @@ const fetchMessageHistory = async (): Promise<Message[]> => {
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   useEffect(() => {
-    fetchMessageHistory().then((message) => setMessages(message));
+    fetch(`http://127.0.0.1:5000/message?channelID=1`)
+      .then((res) => res.json())
+      .then((messages) => {
+        messages.map(
+          (item: {
+            messageID: number;
+            userID: number;
+            userName: string;
+            message: string;
+            timeSent: string;
+          }) => {
+            const displayMessage: Message = {
+              id: item.messageID,
+              sender: item.userName,
+              text: item.message,
+              timestamp: item.timeSent,
+            };
+            return displayMessage;
+          }
+        );
+        console.log(messages);
+        setMessages(messages);
+      });
   }, []);
-
   return (
     <SocketProvider>
       <div className="flex flex-col flex-1 h-screen">
         <h1 className="text-2xl font-bold mb-4 border-b text-green-700 p-1.5">
           general
         </h1>
-        <ChatArea messages={messages} setMessages={setMessages} />
+        <ChatArea />
       </div>
     </SocketProvider>
   );

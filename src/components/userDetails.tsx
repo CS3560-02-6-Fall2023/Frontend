@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import UpdateScheduleForm from "./updateScheduleForm";
 import { UserContext } from "@/components/authenticationProvider";
 import React from "react";
+import ChangeProfileImageForm from "./changeProfileImageForm";
 
 
 export default function UserDetails() {
@@ -41,9 +42,11 @@ export default function UserDetails() {
                                     Update Schedule
                                 </Button>
                             </UpdateScheduleForm>
-                            <Button className="text-lg ">
-                                Change Profile Image
-                            </Button>
+                            <ChangeProfileImageForm>
+                                <Button className="text-lg">
+                                    Change Profile Image
+                                </Button>
+                            </ChangeProfileImageForm>
                             <Button className="text-lg ">Log Out</Button>
                         </div>
                     </div>

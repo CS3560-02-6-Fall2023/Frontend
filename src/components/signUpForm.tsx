@@ -53,6 +53,7 @@ const SignUpForm = () => {
                 profilePicture: userData.profilePicture,
                 username: userData.username,
                 serverIDs: [],
+                currentServer: 0,
             });
 
             setAuthenticated(true);

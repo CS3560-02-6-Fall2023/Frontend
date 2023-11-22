@@ -43,6 +43,7 @@ const SignInForm = () => {
                 profilePicture: image,
                 username: userName,
                 serverIDs: serverIDs,
+                currentServer: 0,
             });
             setAuthenticated(true);
             navigate("/");

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 import UserDetails from "./userDetails";
 import { Dialog } from "./ui/dialog";
+import { UserContext } from "./authenticationProvider";
 
 const channels = [
   { id: 1, name: "#general" },
@@ -10,11 +11,26 @@ const channels = [
   { id: 3, name: "#project" },
   { id: 4, name: "#quiz" },
 ];
+interface Channel {
+    channelId: number;
+    channelName: string;
+    serverID: number;
+}
 
 
 
 export default function SideBar() {
-
+  const { serverData, currentServer } = useContext(UserContext);
+  const [channels, setChannels] = useState<Channel[]>([{
+    channelId: 0,
+    channelName: "",
+    serverID: 0,
+  }]);
+  useEffect(() => {
+    if (serverData) {
+      setChannels(serverData[currentServer].channels);
+    }
+  }, [serverData, currentServer]);
 
   return (
     <>
@@ -24,11 +40,11 @@ export default function SideBar() {
           <div className="flex flex-col items-start">
             {channels.map((channel) => (
               <Button
-                key={channel.id}
+                key={channel.channelId}
                 variant="link"
                 className="text-xl mb-2 text-gray-500 hover:text-green-600 hover:underline px-2 py-1 rounded"
               >
-                {channel.name}
+                #{channel.channelName}
               </Button>
             ))}
           </div>

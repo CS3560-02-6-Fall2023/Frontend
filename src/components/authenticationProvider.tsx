@@ -5,6 +5,7 @@ interface UserType {
     username: string;
     profilePicture: string;
     email: string;
+    serverIDs: number[];
 }
 
 interface UserContextType extends UserType {
@@ -20,6 +21,7 @@ export const UserContext = React.createContext<UserContextType>({
     email: "EMAIL@cpp.edu",
     profilePicture: "",
     username: "User",
+    serverIDs: [],
     setUser: () => {},
 });
 
@@ -38,6 +40,7 @@ export function AuthenticationProvider({
         email: "EMAIL@cpp.edu",
         profilePicture: "",
         username: "User",
+        serverIDs: [],
     });
     const [authenticated, setAuthenticated] = React.useState(false);
 

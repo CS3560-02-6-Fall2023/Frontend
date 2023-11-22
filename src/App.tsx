@@ -21,12 +21,12 @@ const MessageApp = () => (
 );
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
-    const location = useLocation();
-    const { authenticated } = React.useContext(AuthenticatedContext);
+    // const location = useLocation();
+    // const { authenticated } = React.useContext(AuthenticatedContext);
 
-    if (!authenticated) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
-    }
+    // if (!authenticated) {
+    //     return <Navigate to="/login" state={{ from: location }} replace />;
+    // }
     return children;
 };
 

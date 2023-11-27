@@ -1,9 +1,9 @@
     import React, { useContext, useEffect, useState } from "react";
-    import { Button } from "./ui/button";
-    import { Dialog, DialogContent, DialogTrigger, DialogClose } from "./ui/dialog";
+    import { Button } from "../ui/button";
+    import { Dialog, DialogContent, DialogTrigger, DialogClose } from "../ui/dialog";
     import { Label } from "@radix-ui/react-label";
     import AddClassForm from "./addClassForm";
-    import { UserContext } from "./authenticationProvider";
+    import { UserContext } from "../../context/authenticationProvider";
 
     interface ServerData {
         serverID: number;

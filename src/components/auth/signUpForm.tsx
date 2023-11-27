@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
     UserContext,
     AuthenticatedContext,
-} from "@/components/authenticationProvider";
+} from "@/context/authenticationProvider";
 
 const SignUpForm = () => {
     const [image, setImage] = React.useState("");

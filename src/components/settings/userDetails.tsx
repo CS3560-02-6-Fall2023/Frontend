@@ -1,8 +1,8 @@
-import { Button } from "./ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "../ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import UpdateScheduleForm from "./updateScheduleForm";
-import { UserContext } from "@/components/authenticationProvider";
+import { UserContext } from "@/context/authenticationProvider";
 import React from "react";
 import ChangeProfileImageForm from "./changeProfileImageForm";
 

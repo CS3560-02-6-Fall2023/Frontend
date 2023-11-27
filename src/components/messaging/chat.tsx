@@ -16,6 +16,7 @@ const toDateTime = (date: Date): string => {
 };
 
 // TODO: Replace with actual fetch to backend
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const fetchMessageHistory = async (): Promise<Message[]> => {
     const messages: Message[] = [
         {

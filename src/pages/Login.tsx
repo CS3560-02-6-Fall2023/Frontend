@@ -11,9 +11,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthenticatedContext, UserContext } from "../../context/authenticationProvider";
+import { AuthenticatedContext, UserContext } from "../context/authenticationProvider";
 
-const SignInForm = () => {
+const Login = () => {
     const { setUser } = React.useContext(UserContext);
     const { setAuthenticated } = React.useContext(AuthenticatedContext);
     const navigate = useNavigate();
@@ -105,4 +105,4 @@ const SignInForm = () => {
     );
 };
 
-export default SignInForm;
+export default Login;

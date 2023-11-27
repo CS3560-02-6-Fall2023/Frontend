@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { ScrollArea } from "../../ui/scroll-area";
-import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import { Button } from "../../ui/button";
+import { ScrollArea } from "../ui/scroll-area";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../ui/button";
 import React from "react";
-import { UserContext } from "../../../context/authenticationProvider";
+import { UserContext } from "../../context/authenticationProvider";
 interface Channel {
     channelId: number;
     channelName: string;

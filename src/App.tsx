@@ -1,29 +1,17 @@
-import SignInForm from "./components/auth/signInForm";
+import React from "react";
 import {
   Navigate,
   useLocation,
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Chat from "./components/chat/chat";
-import Navbar from "./components/chat/layout/navbar";
-import Sidebar from "./components/chat/layout/sidebar";
-import Userlist from "./components/settings/userlist";
-import SignUpForm from "./components/auth/signUpForm";
-import React from "react";
 import {
   AuthenticatedContext,
   AuthenticationProvider,
 } from "./context/authenticationProvider";
-
-const MessageApp = () => (
-  <div className="flex h-screen overflow-hidden">
-    <Navbar />
-    <Sidebar />
-    <Chat />
-    <Userlist />
-  </div>
-);
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import MessageApp from "./pages/MessageApp";
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();
@@ -44,19 +32,19 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/SignUp",
-    element: <SignUpForm />,
+    path: "/signup",
+    element: <Signup />,
   },
   {
-    path: "/LogIn",
-    element: <SignInForm />,
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
 function App() {
   return (
     <AuthenticationProvider>
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </AuthenticationProvider>
   );
 }

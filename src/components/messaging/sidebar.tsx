@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { Button } from "../../ui/button";
-import { ScrollArea } from "../../ui/scroll-area";
-import UserDetails from "../../settings/userDetails";
-import { Dialog } from "../../ui/dialog";
-import { UserContext } from "../../../context/authenticationProvider";
+import { Button } from "../ui/button";
+import { ScrollArea } from "../ui/scroll-area";
+import UserDetails from "../settings/userDetails";
+import { UserContext } from "../../context/authenticationProvider";
 
 const channels = [
   { id: 1, name: "#general" },
@@ -36,7 +35,7 @@ export default function SideBar() {
     <>
       <div className="h-screen w-64 p-3 border flex flex-col">
         <h1 className="text-2xl font-bold mb-4 border-b">CS3560.02</h1>
-        <ScrollArea className="overflow-y-auto h-full">
+        <ScrollArea className="overflow-y-auto h-full w-5">
           <div className="flex flex-col items-start">
             {channels.map((channel) => (
               <Button

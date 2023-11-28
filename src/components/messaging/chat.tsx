@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Message from "./message";
-import SocketProvider from "./socket";
+import Message from "./Message";
+import SocketProvider from "../../context/SocketProvider";
 import ChatArea from "./ChatArea";
 
 interface Message {

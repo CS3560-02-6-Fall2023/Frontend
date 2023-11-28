@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 import UserDetails from "../settings/userDetails";
-import { UserContext } from "../../context/authenticationProvider";
+import { UserContext } from "../../context/AuthProvider";
 
 const channels = [
   { id: 1, name: "#general" },

@@ -8,7 +8,7 @@ import {
 import {
   AuthenticatedContext,
   AuthenticationProvider,
-} from "./context/authenticationProvider";
+} from "./context/AuthProvider";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MessageApp from "./pages/MessageApp";

@@ -3,7 +3,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import React from "react";
-import { UserContext } from "../../context/authenticationProvider";
+import { UserContext } from "../../context/AuthProvider";
 interface Channel {
     channelId: number;
     channelName: string;

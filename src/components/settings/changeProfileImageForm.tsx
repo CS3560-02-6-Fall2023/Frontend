@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogTrigger, DialogClose } from "../ui/dialog";
 import { Label } from "@radix-ui/react-label";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "@/context/authenticationProvider";
+import { UserContext } from "@/context/AuthProvider";
 
 const ChangeProfileImageForm = ({ children }: { children: React.ReactNode }) => {
   const [image, setImage] = useState("");

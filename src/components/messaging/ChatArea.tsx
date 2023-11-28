@@ -1,10 +1,10 @@
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import Message from "./message";
+import Message from "./Message";
 import { useChat } from "./useChat";
 import { useEffect } from "react";
-import { useSocket } from "./socket";
+import { useSocket } from "../../context/SocketProvider";
 
 interface Message {
     id: number;

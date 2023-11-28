@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "@/context/AuthProvider";
+
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import AddClassForm from "@/components/settings/AddClassForm";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogTrigger,
-  DialogClose,
 } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+
+import AddClassForm from "@/components/settings/AddClassForm";
+import { UserContext } from "@/context/AuthProvider";
 
 interface ServerData {
   serverID: number;
@@ -38,7 +40,7 @@ const UpdateScheduleForm = ({ children }: { children: React.ReactNode }) => {
     setCourses(courses.filter((_, i) => i !== index));
     await fetch(
       "http://127.0.0.1:5000/classserver/?" + new URLSearchParams(course),
-      { method: "DELETE" }
+      { method: "DELETE" },
     );
     serverData?.splice(index, 1);
     setUser((prev) => ({ ...prev, serverData: serverData }));

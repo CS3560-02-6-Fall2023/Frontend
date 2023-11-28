@@ -1,15 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "@/context/AuthProvider";
+
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogTrigger,
-  DialogClose,
 } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 
+import { UserContext } from "@/context/AuthProvider";
 
 const ChangeProfileImageForm = ({
   children,

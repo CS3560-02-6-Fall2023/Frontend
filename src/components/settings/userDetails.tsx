@@ -1,14 +1,16 @@
 import React from "react";
-import { UserContext } from "@/context/AuthProvider";
-import UpdateScheduleForm from "@/components/settings/UpdateScheduleForm";
-import { Button } from "@/components/ui/button";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+
 import ChangeProfileImageForm from "@/components/settings/ChangeProfileImageForm";
+import UpdateScheduleForm from "@/components/settings/UpdateScheduleForm";
+import { UserContext } from "@/context/AuthProvider";
 
 export default function UserDetails() {
   const { username, email, profilePicture } = React.useContext(UserContext);

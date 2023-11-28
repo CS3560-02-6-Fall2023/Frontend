@@ -1,9 +1,6 @@
 import React from "react";
-import { UserContext, AuthenticatedContext } from "@/context/AuthProvider";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -11,6 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { AuthenticatedContext, UserContext } from "@/context/AuthProvider";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
   const [image, setImage] = React.useState("");

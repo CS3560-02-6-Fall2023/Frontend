@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+
 import UserDetails from "@/components/settings/UserDetails";
 import { UserContext } from "@/context/AuthProvider";
 
@@ -11,20 +13,20 @@ const channels = [
   { id: 4, name: "#quiz" },
 ];
 interface Channel {
-    channelId: number;
-    channelName: string;
-    serverID: number;
+  channelId: number;
+  channelName: string;
+  serverID: number;
 }
-
-
 
 export default function SideBar() {
   const { serverData, currentServer } = useContext(UserContext);
-  const [channels, setChannels] = useState<Channel[]>([{
-    channelId: 0,
-    channelName: "",
-    serverID: 0,
-  }]);
+  const [channels, setChannels] = useState<Channel[]>([
+    {
+      channelId: 0,
+      channelName: "",
+      serverID: 0,
+    },
+  ]);
   useEffect(() => {
     if (serverData) {
       setChannels(serverData[currentServer].channels);

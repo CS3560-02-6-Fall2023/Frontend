@@ -1,6 +1,6 @@
 // useChat.ts
 import { useEffect, useRef, useState } from "react";
-import { useSocket } from "../../context/SocketProvider";
+import { useSocket } from "@/context/SocketProvider";
 
 // Initial state for the input
 const initialInputState = (userID: number) => ({

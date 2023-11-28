@@ -1,17 +1,17 @@
 import React from "react";
+import Login from "@/pages/Login";
+import Signup from "@/pages/Signup";
+import MessageApp from "@/pages/MessageApp";
+import {
+  AuthenticatedContext,
+  AuthenticationProvider,
+} from "@/context/AuthProvider";
 import {
   Navigate,
   useLocation,
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import {
-  AuthenticatedContext,
-  AuthenticationProvider,
-} from "./context/AuthProvider";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import MessageApp from "./pages/MessageApp";
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();

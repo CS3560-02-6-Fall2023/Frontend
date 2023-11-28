@@ -1,11 +1,21 @@
 import React, { useState, useContext } from "react";
-import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogTrigger, DialogClose } from "../ui/dialog";
-import { Label } from "@radix-ui/react-label";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "@/context/AuthProvider";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 
-const ChangeProfileImageForm = ({ children }: { children: React.ReactNode }) => {
+
+const ChangeProfileImageForm = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [image, setImage] = useState("");
   const navigate = useNavigate();
   const { username, email, setUser } = useContext(UserContext);
@@ -31,7 +41,7 @@ const ChangeProfileImageForm = ({ children }: { children: React.ReactNode }) => 
     // Prepare the updated user data
     const updatedUserData = {
       username, // keep the existing username
-      email,    // keep the existing email
+      email, // keep the existing email
       profilePicture: image, // update with the new image
     };
 
@@ -39,14 +49,14 @@ const ChangeProfileImageForm = ({ children }: { children: React.ReactNode }) => 
       const response = await fetch("http://127.0.0.1:5000/account/", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(updatedUserData),
       });
 
       if (response.ok) {
         console.log("Image updated successfully");
-        setUser(updatedUserData); 
+        setUser(updatedUserData);
         navigate("/");
       } else {
         console.error("Failed to update image", response.status);
@@ -61,13 +71,19 @@ const ChangeProfileImageForm = ({ children }: { children: React.ReactNode }) => 
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <div className="mb-4">
-          <Label htmlFor="profile-picture" className="block text-lg font-bold mb-2">
+          <Label
+            htmlFor="profile-picture"
+            className="block text-lg font-bold mb-2"
+          >
             Change Profile Image
           </Label>
           {image && (
             <div className="mb-4">
               <img src={image} alt="Profile" className="mb-4" />
-              <Button onClick={clearImage} className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+              <Button
+                onClick={clearImage}
+                className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              >
                 Clear Image
               </Button>
             </div>
@@ -86,7 +102,10 @@ const ChangeProfileImageForm = ({ children }: { children: React.ReactNode }) => 
               </Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button onClick={updateProfileImage} className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-1/2">
+              <Button
+                onClick={updateProfileImage}
+                className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-1/2"
+              >
                 Save and Exit
               </Button>
             </DialogClose>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Message from "./Message";
-import SocketProvider from "../../context/SocketProvider";
-import ChatArea from "./ChatArea";
+import Message from "@/components/messaging/Message";
+import SocketProvider from "@/context/SocketProvider";
+import ChatArea from "@/components/messaging/ChatArea";
 
 interface Message {
     id: number;

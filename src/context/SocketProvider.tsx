@@ -17,11 +17,11 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   const joinRoom = (room: string) => {
-    socket.emit("join", {room: room});
+    socket.emit("join", { room: room });
   };
 
   const leaveRoom = (room: string) => {
-    socket.emit("leave", {room: room});
+    socket.emit("leave", { room: room });
   };
 
   useEffect(() => {

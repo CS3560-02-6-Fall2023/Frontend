@@ -1,7 +1,7 @@
-import Sidebar from "@/components/messaging/sidebar";
-import Userlist from "../components/settings/userlist";
-import Chat from "../components/messaging/chat";
-import Navbar from "../components/messaging/navbar";
+import Sidebar from "@/components/messaging/Sidebar";
+import Userlist from "@/components/settings/Userlist";
+import Chat from "@/components/messaging/Chat";
+import Navbar from "@/components/messaging/Navbar";
 
 export default function MessageApp() {
   return (

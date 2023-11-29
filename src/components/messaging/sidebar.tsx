@@ -6,12 +6,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import UserDetails from "@/components/settings/UserDetails";
 import { UserContext } from "@/context/AuthProvider";
 
-const channels = [
-  { id: 1, name: "#general" },
-  { id: 2, name: "#homework" },
-  { id: 3, name: "#project" },
-  { id: 4, name: "#quiz" },
-];
 interface Channel {
   channelId: number;
   channelName: string;
@@ -37,8 +31,8 @@ export default function SideBar() {
     <>
       <div className="h-screen w-64 p-3 border flex flex-col">
         <h1 className="text-2xl font-bold mb-4 border-b">CS3560.02</h1>
-        <ScrollArea className="overflow-y-auto h-full w-5">
-          <div className="flex flex-col items-start">
+        <ScrollArea className="overflow-y-auto h-full">
+          <div className="flex flex-col items-start w-10">
             {channels.map((channel) => (
               <Button
                 key={channel.channelId}

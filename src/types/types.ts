@@ -1,7 +1,8 @@
 export interface MessageType {
-    id: number;
-    sender: string;
-    text: string;
+    messageID: number;
+    userName: string;
+    userID: number;
+    message: string;
     image?: string;
-    timestamp: string;
+    timeSent: string;
 }

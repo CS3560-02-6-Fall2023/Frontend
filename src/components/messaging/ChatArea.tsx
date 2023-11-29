@@ -1,43 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import Message from "@/components/messaging/Message";
-import { useChat } from "@/components/messaging/useChat";
 import { useSocket } from "@/context/SocketProvider";
 import { MessageType } from "@/types/types";
 
-const ChatArea = () => {
-  const { joinRoom, leaveRoom } = useSocket();
-  const { messages, setMessages, input, handleInput, submitMessage } =
-    useChat();
+interface inputProps extends Omit<MessageType, "messageID"> {
+  channelID: number;
+  serverID: number;
+}
 
+const ChatArea = () => {
+  const [messages, setMessages] = useState<MessageType[]>([]);
+  const { messagesSocket, joinRoom, leaveRoom } = useSocket();
   useEffect(() => {
     setTimeout(() => {
       fetch(`http://127.0.0.1:5000/message?channelID=1`)
         .then((res) => res.json())
-        .then((messages) => {
-          const formattedMessages = messages.map(
-            (item: {
-              messageID: number;
-              userID: number;
-              userName: string;
-              message: string;
-              timeSent: string;
-            }) => {
-              const displayMessage: message = {
-                id: item.messageID,
-                sender: item.userName,
-                text: item.message,
-                timestamp: item.timeSent,
-              };
-              return displayMessage;
-            },
-          );
-          console.log(formattedMessages);
-          setMessages(formattedMessages);
+        .then((messages: MessageType[]) => {
+          console.log(messages);
+          setMessages(messages);
         });
     }, 1000);
   }, [setMessages]);
@@ -52,15 +37,58 @@ const ChatArea = () => {
     };
   }, [joinRoom, leaveRoom, room]);
 
+  useEffect(() => {
+    const onConnect = () => console.log("Connected to the server");
+
+    const onAfterConnect = (data: string) =>
+      console.log("Received data: ", data);
+
+    const onMessageReceived = (data: string) => {
+      const message = JSON.parse(data);
+      console.log("Received message: ", message);
+      setMessages((prevMessages) => [...prevMessages, message]);
+    };
+
+    messagesSocket.on("connect", onConnect);
+    messagesSocket.on("after connect", onAfterConnect);
+    messagesSocket.on("message_received", onMessageReceived);
+
+    return () => {
+      messagesSocket.off("connect");
+      messagesSocket.off("after connect");
+      messagesSocket.off("message_received");
+    };
+  }, [messagesSocket]);
+
+  const submitMessage = (e: React.FormEvent<HTMLElement>) => {
+    e.preventDefault();
+    if (input.message === "" && input.image === null) return;
+    console.log(input);
+    messagesSocket.emit("message", input);
+    setInput({ ...input, message: "", timeSent: "0" });
+  };
+
+  const [input, setInput] = useState<inputProps>({
+    userID: 1,
+    userName: "Bob",
+    channelID: 1,
+    serverID: 1,
+    message: "",
+    timeSent: "0",
+  });
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput({ ...input, message: e.target.value });
+  };
   return (
     <>
       <ScrollArea className="overflow-y-auto h-full px-5 mb-2">
         {messages.map((message) => (
           <Message
-            key={message.id}
-            user={message.sender}
-            timestamp={message.timestamp}
-            content={message.text}
+            key={message.messageID}
+            userName={message.userName}
+            timeSent={message.timeSent}
+            message={message.message}
             image={message.image}
           />
         ))}
@@ -69,7 +97,7 @@ const ChatArea = () => {
         <Input
           placeholder="Type your message..."
           className="text-xl p-2 flex-1 py-2 border rounded text-black"
-          value={input.text}
+          value={input.message}
           onChange={handleInput}
         />
         <Button className="text-xl ml-2 bg-green-600 text-white p-2 rounded">

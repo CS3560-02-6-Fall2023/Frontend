@@ -28,7 +28,7 @@ export default function Navbar() {
   useEffect(() => {
     async function fetchData() {
       const requestBody = {
-        serverID: serverIDs.toString(),
+        serverID: "1",
       };
 
       const serverRequest = await fetch(

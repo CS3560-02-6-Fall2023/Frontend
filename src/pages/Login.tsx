@@ -1,5 +1,4 @@
 import React from "react";
-import { AuthenticatedContext, UserContext } from "@/context/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,10 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
-  const { setUser } = React.useContext(UserContext);
-  const { setAuthenticated } = React.useContext(AuthenticatedContext);
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,14 +37,13 @@ const Login = () => {
 
       const { image } = await imageRequest.json();
 
-      setUser({
+      login({
         email: userData.email,
         profilePicture: image,
         username: userName,
         serverIDs: serverIDs,
         currentServer: 0,
       });
-      setAuthenticated(true);
       navigate("/");
     }
   };

@@ -1,25 +1,24 @@
-import React from "react";
-import Login from "@/pages/Login";
-import Signup from "@/pages/Signup";
-import MessageApp from "@/pages/MessageApp";
-import {
-  AuthenticatedContext,
-  AuthenticationProvider,
-} from "@/context/AuthProvider";
 import {
   Navigate,
-  useLocation,
-  createBrowserRouter,
   RouterProvider,
+  createBrowserRouter,
+  useLocation,
 } from "react-router-dom";
+
+import { AuthenticationProvider } from "@/context/AuthProvider";
+import Login from "@/pages/Login";
+import MessageApp from "@/pages/MessageApp";
+import Signup from "@/pages/Signup";
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();
-  const { authenticated } = React.useContext(AuthenticatedContext);
-  if (!authenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+  const user = localStorage.getItem("user");
+  console.log(user);
+  if (user) {
+    console.log(user);
+    return children;
   }
-  return children;
+  return <Navigate to="/login" state={{ from: location }} replace />;
 };
 
 const router = createBrowserRouter([

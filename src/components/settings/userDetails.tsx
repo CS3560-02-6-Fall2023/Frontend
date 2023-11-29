@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -11,9 +12,16 @@ import {
 import ChangeProfileImageForm from "@/components/settings/ChangeProfileImageForm";
 import UpdateScheduleForm from "@/components/settings/UpdateScheduleForm";
 import { UserContext } from "@/context/AuthProvider";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function UserDetails() {
   const { username, email, profilePicture } = React.useContext(UserContext);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <div className="border-t border-gray-700 pt-4">
@@ -48,7 +56,9 @@ export default function UserDetails() {
               <ChangeProfileImageForm>
                 <Button className="text-lg">Change Profile Image</Button>
               </ChangeProfileImageForm>
-              <Button className="text-lg ">Log Out</Button>
+              <Button className="text-lg " onClick={handleLogOut}>
+                Log Out
+              </Button>
             </div>
           </div>
         </PopoverContent>

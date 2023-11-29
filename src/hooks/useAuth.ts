@@ -1,16 +1,13 @@
 import { useEffect } from "react";
 
+import { useUser } from "@/hooks/useUser";
 import { UserType } from "@/types/types";
-
-import { useLocalStorage } from "./useLocalStorage";
-import { useUser } from "./useUser";
 
 export const useAuth = () => {
   const { user, logUserIn, signUserOut } = useUser();
-  const { getItem } = useLocalStorage();
 
   useEffect(() => {
-    const user = getItem("user");
+    const user = localStorage.getItem("user");
     if (user) {
       logUserIn(JSON.parse(user));
     }

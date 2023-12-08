@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import Message from "@/components/messaging/Message";
 import { useSocket } from "@/context/SocketProvider";
+// import useFetch from "@/hooks/useFetch";
 import { MessageType } from "@/types/types";
 
 interface inputProps extends Omit<MessageType, "messageID"> {
@@ -16,6 +17,7 @@ interface inputProps extends Omit<MessageType, "messageID"> {
 const ChatArea = () => {
   const [messages, setMessages] = useState<MessageType[]>([]);
   const { messagesSocket, joinRoom, leaveRoom } = useSocket();
+
   useEffect(() => {
     setTimeout(() => {
       fetch(`http://127.0.0.1:5000/message?channelID=1`)
@@ -25,7 +27,7 @@ const ChatArea = () => {
           setMessages(messages);
         });
     }, 1000);
-  }, [setMessages]);
+  }, []);
 
   const room = "test";
   useEffect(() => {

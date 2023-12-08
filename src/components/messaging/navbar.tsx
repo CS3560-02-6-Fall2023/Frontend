@@ -27,8 +27,10 @@ export default function Navbar() {
 
   useEffect(() => {
     async function fetchData() {
+      fetch("http://127.0.0.1:5000/")
+
       const requestBody = {
-        serverID: "1",
+        serverID: serverIDs.toString(),
       };
 
       const serverRequest = await fetch(

@@ -1,9 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Card,
   CardContent,
@@ -11,12 +9,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 import { useAuth } from "@/hooks/useAuth";
+import useFetch from "@/hooks/useFetch";
 
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const userData = {
@@ -25,14 +27,14 @@ const Login = () => {
     };
 
     const response = await fetch(
-      "http://127.0.0.1:5000/account/?" + new URLSearchParams(userData)
+      "http://127.0.0.1:5000/account/?" + new URLSearchParams(userData),
     );
 
     if (response.status === 200) {
       const { imageID, userName, serverIDs } = await response.json();
       const imageRequest = await fetch(
         "http://127.0.0.1:5000/image/?" +
-          new URLSearchParams({ imageID: imageID })
+          new URLSearchParams({ imageID: imageID }),
       );
 
       const { image } = await imageRequest.json();
@@ -42,7 +44,7 @@ const Login = () => {
         profilePicture: image,
         username: userName,
         serverIDs: serverIDs,
-        currentServer: 0,
+        // currentServer: 0,
       });
       navigate("/");
     }

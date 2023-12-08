@@ -26,5 +26,5 @@ export interface UserType {
   email: string;
   serverIDs: number[];
   serverData?: ServerData[];
-  currentServer: number;
+  currentServer?: number;
 }

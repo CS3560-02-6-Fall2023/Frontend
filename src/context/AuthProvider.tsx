@@ -51,11 +51,4 @@ export function AuthenticationProvider({
     </AuthenticatedContext.Provider>
   );
   // const [authenticated, setAuthenticated] = React.useState(false);
-  // return (
-  //   <AuthenticatedContext.Provider value={{ authenticated, setAuthenticated, user }}>
-  //     <UserContext.Provider value={{ ...user, setUser }}>
-  //       {children}
-  //     </UserContext.Provider>
-  //   </AuthenticatedContext.Provider>
-  // );
 }

@@ -14,6 +14,7 @@ interface Message {
     timestamp: string;
 }
 
+// scrollable chat area
 const ChatArea = () => {
     const { joinRoom, leaveRoom } = useSocket();
     const { messages, setMessages, input, handleInput, submitMessage } =

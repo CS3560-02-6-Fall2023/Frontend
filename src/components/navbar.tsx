@@ -17,6 +17,7 @@ interface ServerData {
     userIDs: number[];
 }
 
+// navbar is used for a list of the course servers a user is in
 export default function Navbar() {
     // state to keep track of the active button index
     const [activeIndex, setActiveIndex] = useState(0);

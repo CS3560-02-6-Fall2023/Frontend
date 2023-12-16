@@ -11,21 +11,21 @@ const AddClassForm = ({ children }: { children: React.ReactNode }) => {
 
   const handleSubjectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.toUpperCase();
-    if (/^[A-Za-z]*$/.test(value)) { // allow only letters to be inputted for the course subject
+    if (/^[A-Za-z]*$/.test(value)) { // allow only letters to be inputted for the course subject with regex
       setCourseSubject(value);
     }
   };
 
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    if (/^\d*$/.test(value)) { // allow only digits to be inputted for the course number
+    if (/^\d*$/.test(value)) { // allow only digits to be inputted for the course number with regex
       setCourseNumber(value);
     }
   };
 
   const handleSectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    if (/^\d*$/.test(value)) { // allow only digits to be inputted for the course number
+    if (/^\d*$/.test(value)) { // allow only digits to be inputted for the course number with regex
       setCourseSection(value);
     }
   };

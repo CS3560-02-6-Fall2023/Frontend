@@ -11,6 +11,7 @@ interface Message {
     timestamp: string;
 }
 
+// used to get time of a chat
 const toDateTime = (date: Date): string => {
     return date.toISOString().slice(0, 19).replace("T", " ");
 };
@@ -45,6 +46,7 @@ const fetchMessageHistory = async (): Promise<Message[]> => {
     });
 };
 
+// an individual chat
 const Chat = () => {
     const [, setMessages] = useState<Message[]>([]);
     useEffect(() => {

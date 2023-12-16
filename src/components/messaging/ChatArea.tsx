@@ -15,9 +15,11 @@ interface inputProps extends Omit<MessageType, "messageID"> {
 }
 
 const ChatArea = () => {
+  // states for storing messages
   const [messages, setMessages] = useState<MessageType[]>([]);
   const { messagesSocket, joinRoom, leaveRoom } = useSocket();
 
+  // fetching the messages
   useEffect(() => {
     setTimeout(() => {
       fetch(`http://127.0.0.1:5000/message?channelID=1`)
@@ -29,6 +31,7 @@ const ChatArea = () => {
     }, 1000);
   }, []);
 
+  // default room for a chat
   const room = "test";
   useEffect(() => {
     // Join the room when the component mounts
@@ -39,6 +42,7 @@ const ChatArea = () => {
     };
   }, [joinRoom, leaveRoom, room]);
 
+  // socket event listeners for connecting and receiving messages
   useEffect(() => {
     const onConnect = () => console.log("Connected to the server");
 
@@ -62,6 +66,7 @@ const ChatArea = () => {
     };
   }, [messagesSocket]);
 
+  // handling message submission
   const submitMessage = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     if (input.message === "" && input.image === null) return;
@@ -70,6 +75,7 @@ const ChatArea = () => {
     setInput({ ...input, message: "", timeSent: "0" });
   };
 
+  // handling chat input
   const [input, setInput] = useState<inputProps>({
     userID: 1,
     userName: "Bob",
@@ -82,6 +88,8 @@ const ChatArea = () => {
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, message: e.target.value });
   };
+
+  // return a scrollable chatting area
   return (
     <>
       <ScrollArea className="overflow-y-auto h-full px-5 mb-2">

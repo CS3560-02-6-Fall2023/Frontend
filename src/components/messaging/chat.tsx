@@ -1,5 +1,6 @@
 import ChatArea from "@/components/messaging/ChatArea";
 
+// how the each chat looks
 export default function Chat() {
   return (
     <div className="flex flex-col flex-1 h-screen">

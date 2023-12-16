@@ -10,9 +10,11 @@ export default function Message({
   timeSent,
   ...props
 }: MessageProps) {
+  // time for each sent message
   const time = new Date(timeSent);
   time.setHours(time.getHours() - 8);
   const displayTime = time.toLocaleTimeString().replace(/(.*)\D\d+/, "$1");
+  // message component
   return (
     <div className="p-2 hover:bg-slate-100" {...props}>
       <div className="flex justify-between">

@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { UserContext } from "@/context/AuthProvider";
 
+// channel for each course server
 interface Channel {
   channelId: number;
   channelName: string;
@@ -19,6 +20,7 @@ interface ServerData {
   userIDs: number[];
 }
 
+// navbar holding the list of course servers a user is in
 export default function Navbar() {
   // state to keep track of the active button index
   const [activeIndex, setActiveIndex] = useState(0);

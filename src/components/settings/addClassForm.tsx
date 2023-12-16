@@ -18,7 +18,7 @@ const AddClassForm = ({ children }: { children: React.ReactNode }) => {
   const handleSubjectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.toUpperCase();
     if (/^[A-Za-z]*$/.test(value)) {
-      // allow only letters to be inputted for the course subject
+      // allow only letters to be inputted for the course subject with regex
       setCourseSubject(value);
     }
   };
@@ -26,7 +26,7 @@ const AddClassForm = ({ children }: { children: React.ReactNode }) => {
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     if (/^\d*$/.test(value)) {
-      // allow only digits to be inputted for the course number
+      // allow only digits to be inputted for the course number with regex
       setCourseNumber(value);
     }
   };
@@ -34,7 +34,7 @@ const AddClassForm = ({ children }: { children: React.ReactNode }) => {
   const handleSectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     if (/^\d*$/.test(value)) {
-      // allow only digits to be inputted for the course number
+      // allow only digits to be inputted for the course number with regex
       setCourseSection(value);
     }
   };
@@ -68,7 +68,7 @@ const AddClassForm = ({ children }: { children: React.ReactNode }) => {
       //if a course number and section exists, return the serverID
       console.log("Fetch successful");
     } else {
-      //if not create a new server and return the serverI
+      //if not create a new server and return the serverID
       console.log("Fetch NOT successful");
     }
 
